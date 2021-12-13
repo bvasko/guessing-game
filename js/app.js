@@ -39,7 +39,6 @@ const GuessingGame = function(){
         if (key !== letter) {
           return;
         }
-        console.log(this.currGuess)
         this.currGuess[index] = letter;
       });
       [...this.currGuess].forEach((letter, index) => {

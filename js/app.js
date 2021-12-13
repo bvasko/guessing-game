@@ -9,6 +9,7 @@ const GuessingGame = function(){
     losses: 0,
     selectedWordIndex: 0,
     currWord: null,
+    currGuess: [],
     words: ["bumper", "bunk", "storage", "painless", "trigger"],
     getNewWord: function() {
       /* Return a new word from the word list */
@@ -28,15 +29,21 @@ const GuessingGame = function(){
     getKeypress: function(evt) {
       const key = evt.key;
       let container = document.getElementById("lettersContainer");
+      container.innerHTML = "";
+      /*
+      const letterEl = this.getLetterContainer(str, index);
+        console.log(letterEl)
+        container.append(letterEl);*/
       //container.innerHTML = "";
-      [...this.currWord].forEach((letter, index) => {
+      [...this.currWord].forEach((letter, index, array) => {
         if (key !== letter) {
           return;
         }
-        console.log(key, letter, index)
-        const str = (key == letter) ? letter : "___" ;
-        const letterEl = this.getLetterContainer(str, index);
-        console.log(letterEl)
+        console.log(this.currGuess)
+        this.currGuess[index] = letter;
+      });
+      [...this.currGuess].forEach((letter, index) => {
+        const letterEl = this.getLetterContainer(letter, index);
         container.append(letterEl);
       });
     },
@@ -45,6 +52,7 @@ const GuessingGame = function(){
       [...this.currWord].forEach((element, index) => {
         const letterEl = this.getLetterContainer("___", index);
         container.append(letterEl);
+        this.currGuess.push("___");
       });
     },
     startNewGame: function() {
